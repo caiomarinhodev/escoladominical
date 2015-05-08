@@ -1,0 +1,66 @@
+@(in: Integer, sala: Sala, alunos: List[Aluno])
+
+@main(in){
+
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                @sala.getNome <small>Sala da ebd</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> Sala
+                </li>
+                <li class="active">@sala.getNome</li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+        <div>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID #</th>
+                            <th>Nome</th>
+                            <th>Idade</th>
+                            <th>Endereço</th>
+                            <th>Telefone</th>
+                            <th>Presenças</th>
+                            <th>Faltas</th>
+                            <th>Status</th>
+                            <th>?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(aluno <- alunos){
+                            <tr>
+                                <td>@aluno.getId</td>
+                                <td>@aluno.getNome</td>
+                                <td>@aluno.getIdade</td>
+                                <td>@aluno.getEndereco</td>
+                                <td>@aluno.getTelefone</td>
+                                <td>@SGDB.getPresencaDoAluno(aluno.getId).size()</td>
+                                <td>@SGDB.getFaltasDoAluno(aluno.getId).size()</td>
+                                <td>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar" style="width: @SGDB.getPorcentagemPresencaAluno(aluno.getId)%"></div>
+                                    </div>
+                                </td>
+                                <td><a href="/remove/aluno/@aluno.getId"><span class="fa fa-trash-o"></span></a></td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+}
+
