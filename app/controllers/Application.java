@@ -11,7 +11,20 @@ import views.html.*;
 
 public class Application extends Controller {
     @Transactional
+    public static Result login(){
+        return ok(login.render());
+    }
+    @Transactional
+    public static Result newSession(){
+        session().put("user", "admin");
+        return renderDashboard();
+    }
+    @Transactional
     public static Result index() {
+        String u = session().get("user");
+        if(u==null){
+            return login();
+        }
         return renderDashboard();
     }
     @Transactional
@@ -136,6 +149,35 @@ public class Application extends Controller {
         a.setTelefone(r.get("telefone"));
         SGDB.alterarAluno(a);
         return renderDashboard();
+    }
+
+
+
+    @Transactional
+    public static Result renderlistarAulas(){
+        return ok(listaraulas.render(11));
+    }
+
+    @Transactional
+    public static Result removeAula(long id){
+        return ok();
+    }
+
+    @Transactional
+    public static Result verAula(long id){
+        Aula aula = SGDB.getAula(id);
+        return ok(veraula.render(11,aula));
+    }
+
+    @Transactional
+    public static Result searchAula(){
+        DynamicForm r = Form.form().bindFromRequest();
+        String data = r.get("data");
+        Aula aula = SGDB.getAula(data);
+        if(aula != null){
+            return verAula(aula.getId());
+        }
+        return renderlistarAulas();
     }
 
 }

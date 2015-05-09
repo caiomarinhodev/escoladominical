@@ -2,6 +2,7 @@ package controllers;
 
 import models.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -69,15 +70,31 @@ public class SGDB {
 
     public static void removeAula(Long id){
         Aula a = getAula(id);
+        List<Presenca> lp = getPresencasNaData(a.getData());
+        List<Falta> lf = getFaltasNaData(a.getData());
         if(a!=null){
+            for (Presenca p : lp) {
+                dao.remove(p);
+            }
+            for (Falta f : lf) {
+                dao.remove(f);
+            }
             dao.remove(a);
             dao.flush();
         }
     }
 
     public static void removeAula(String data){
+        List<Presenca> lp = getPresencasNaData(data);
+        List<Falta> lf = getFaltasNaData(data);
         Aula a = getAula(data);
-        if(a!=null){
+        if(a!=null) {
+            for (Presenca p : lp) {
+                dao.remove(p);
+            }
+            for (Falta f : lf) {
+                dao.remove(f);
+            }
             dao.remove(a);
             dao.flush();
         }
@@ -242,6 +259,10 @@ public class SGDB {
     }
 
 
+    //finish tarefa
+
+
+
     public static int getTotalBD(){
         return 10000;
     }
@@ -284,8 +305,12 @@ public class SGDB {
         }
         double val = sum- getDescontos();
         String t = String.valueOf(val);
-        String ini = t.substring(0,t.indexOf('.')+3);
-        return ini;
+        if(t.length()>=5){
+            String ini = t.substring(0,t.indexOf('.')+3);
+            return ini;
+        }
+        return t;
+
     }
 
     public static double getDescontos(){
@@ -297,5 +322,33 @@ public class SGDB {
         }
         return sum;
     }
+
+    public static List<Temp> getListaTempsPresentes(){
+        List<Aula> la = getListaAllAulas();
+        List<Temp> lt = new ArrayList<>();
+        for(Aula aula: la){
+            List<Presenca> lp = getPresencasNaData(aula.getData());
+            Temp t = new Temp(aula.getId(),aula.getData(),lp.size());
+            lt.add(t);
+        }
+        return lt;
+    }
+
+    public static List<Temp> getListaTempsFaltosos(){
+        List<Aula> la = getListaAllAulas();
+        List<Temp> lt = new ArrayList<>();
+        for(Aula aula: la){
+            List<Falta> lf = getFaltasNaData(aula.getData());
+            Temp t = new Temp(aula.getId(),aula.getData(),lf.size());
+            lt.add(t);
+        }
+        return lt;
+    }
+
+
+
+
+
+
 
 }

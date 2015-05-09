@@ -1,0 +1,114 @@
+@(in: Integer, aula: Aula)
+
+@main(in){
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Ver Aula
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa fa-dashboard"></i> Dashboard
+                </li>
+                <li class="active">
+                    Ver aula
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-info">
+                <i class="fa fa-info-circle"></i>  Aqui está listado a direita os alunos presentes e a esqueda os faltosos!
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-warning alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <i class="fa fa-info-circle"></i>  Insira uma data para ver outros dias.
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>
+                    Data:
+                </label>
+                <form method="post" action="/searchaula">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input value="@aula.getData" name="data" type="text" class="datepicker form-control" required>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit" id="go">Ver</button>
+                        </span>
+                    </div>
+                </form>
+                <label>
+                    Oferta:
+                </label>
+                <input class="form-control" value="@aula.getOferta" name="oferta" type="text" disabled/>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-user fa-fw"></i> Alunos Faltosos</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID #</th>
+                                    <th>Nome</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for(al <- SGDB.getFaltasNaData(aula.getData)){
+                                    <tr>
+                                        <td>@al.getAlunoid</td>
+                                        <td>@SGDB.getAluno(al.getAlunoid).getNome</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-right">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Sala</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(aluno <- SGDB.getPresencasNaData(aula.getData)){
+                            <tr>
+                                <td>@SGDB.getAluno(aluno.getAlunoid).getNome</td>
+                                <td>@SGDB.getAluno(aluno.getAlunoid).getTelefone</td>
+                                <td>@SGDB.getSala(SGDB.getAluno(aluno.getAlunoid).getSalaid()).getNome</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+}

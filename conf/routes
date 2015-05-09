@@ -3,7 +3,8 @@
 # ~~~~
 
 # Home page
-GET         /                                  controllers.Application.index
+GET         /                                  controllers.Application.index()
+GET         /se                                controllers.Application.newSession()
 GET         /adicionaraluno                    controllers.Application.renderAddAluno()
 GET         /adicionaraula                     controllers.Application.renderAddAula()
 GET         /sala/:s                           controllers.Application.renderSala(s: String)
@@ -11,19 +12,22 @@ GET         /adicionartarefa                   controllers.Application.renderAdd
 GET         /alteraraluno/:id                  controllers.Application.renderAlterarAluno(id: Long)
 GET         /remove/tarefa/:id                 controllers.Application.removeTarefa(id: Long)
 GET         /remove/aluno/:id                  controllers.Application.removerAluno(id: Long)
+GET         /listaraulas                       controllers.Application.renderlistarAulas()
+GET         /veraula/:id                       controllers.Application.verAula(id: Long)
+GET         /remove/aula/:id                   controllers.Application.removeAula(id: Long)
 
 
 POST        /addaluno                          controllers.Application.addAluno()
 POST        /addaula                           controllers.Application.addAula()
 POST        /addtarefa                         controllers.Application.addTarefa()
 POST        /altaluno                          controllers.Application.altAluno()
+POST        /searchaula                        controllers.Application.searchAula()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                      controllers.Assets.at(path="/public/assets/", file)
 GET         /sala/assets/*file                 controllers.Assets.at(path="/public/assets/", file)
-GET         /remove/assets/*file               controllers.Assets.at(path="/public/assets/", file)
+GET         /veraula/assets/*file              controllers.Assets.at(path="/public/assets/", file)
 GET         /remove/tarefa/assets/*file        controllers.Assets.at(path="/public/assets/", file)
 GET         /remove/aluno/assets/*file         controllers.Assets.at(path="/public/assets/", file)
 GET         /alteraraluno/assets/*file         controllers.Assets.at(path="/public/assets/", file)
-
-    
+GET         /remove/aula/assets/*file          controllers.Assets.at(path="/public/assets/", file)
