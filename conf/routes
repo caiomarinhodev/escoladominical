@@ -8,6 +8,7 @@ GET         /adicionaraluno                    controllers.Application.renderAdd
 GET         /adicionaraula                     controllers.Application.renderAddAula()
 GET         /sala/:s                           controllers.Application.renderSala(s: String)
 GET         /adicionartarefa                   controllers.Application.renderAddTarefa()
+GET         /alteraraluno/:id                  controllers.Application.renderAlterarAluno(id: Long)
 GET         /remove/tarefa/:id                 controllers.Application.removeTarefa(id: Long)
 GET         /remove/aluno/:id                  controllers.Application.removerAluno(id: Long)
 
@@ -15,12 +16,14 @@ GET         /remove/aluno/:id                  controllers.Application.removerAl
 POST        /addaluno                          controllers.Application.addAluno()
 POST        /addaula                           controllers.Application.addAula()
 POST        /addtarefa                         controllers.Application.addTarefa()
+POST        /altaluno                          controllers.Application.altAluno()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                      controllers.Assets.at(path="/public/assets/", file)
 GET         /sala/assets/*file                 controllers.Assets.at(path="/public/assets/", file)
 GET         /remove/assets/*file               controllers.Assets.at(path="/public/assets/", file)
 GET         /remove/tarefa/assets/*file        controllers.Assets.at(path="/public/assets/", file)
-GET         /remove/aluno/assets/*file        controllers.Assets.at(path="/public/assets/", file)
+GET         /remove/aluno/assets/*file         controllers.Assets.at(path="/public/assets/", file)
+GET         /alteraraluno/assets/*file         controllers.Assets.at(path="/public/assets/", file)
 
     

@@ -29,6 +29,11 @@ public class SGDB {
         }
     }
 
+    public static void alterarAluno(Aluno a){
+        dao.merge(a);
+        dao.flush();
+    }
+
     public static List<Aluno> getListaAllAlunos(){
         return dao.findAllByClassName(Aluno.class.getName());
     }
@@ -277,7 +282,10 @@ public class SGDB {
             double d = convertStringToDouble(al.getOferta());
             sum+=d;
         }
-        return String.valueOf((sum-getDescontos()));
+        double val = sum- getDescontos();
+        String t = String.valueOf(val);
+        String ini = t.substring(0,t.indexOf('.')+3);
+        return ini;
     }
 
     public static double getDescontos(){

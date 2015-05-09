@@ -119,4 +119,23 @@ public class Application extends Controller {
         return renderDashboard();
     }
 
+    @Transactional
+    public static Result renderAlterarAluno(long id){
+        return ok(editaraluno.render(1,SGDB.getAluno(id)));
+    }
+
+    @Transactional
+    public static Result altAluno(){
+        DynamicForm r = Form.form().bindFromRequest();
+        long id = Long.parseLong(r.get("alunoid"));
+        Aluno a = SGDB.getAluno(id);
+        a.setEndereco(r.get("endereco"));
+        a.setIdade(r.get("idade"));
+        a.setNome(r.get("nome"));
+        a.setSalaid(Long.parseLong(r.get("salaid")));
+        a.setTelefone(r.get("telefone"));
+        SGDB.alterarAluno(a);
+        return renderDashboard();
+    }
+
 }
