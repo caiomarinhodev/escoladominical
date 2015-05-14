@@ -127,8 +127,13 @@
                     <div class="list-group">
                         @for(tarefa <- tarefas){
                             <div class="list-group-item">
-                                <span class="badge">@tarefa.getDatafinal &nbsp;<a href="/remove/tarefa/@tarefa.getId">
-                                    <span class="fa fa-trash-o"></span></a></span>
+                                <span class="badge">@tarefa.getDatafinal &nbsp;
+                                <a href="/vertarefa/@tarefa.getId">
+                                    <span class="fa fa-eye"></span>
+                                </a>&nbsp;
+                                <a href="/remove/tarefa/@tarefa.getId">
+                                    <span class="fa fa-trash-o"></span>
+                                </a></span>
                                 <i class="fa fa-fw fa-check"></i> @tarefa.getComentario - @tarefa.getValor
                             </div>
                         }

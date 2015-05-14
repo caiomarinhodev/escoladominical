@@ -1,18 +1,18 @@
-@(in: Integer)
+@(in: Integer, tarefa: Tarefa)
 
 @main(in){
     <!-- Page Heading -->
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                Adicionar Tarefa
+                Visualizar Tarefa
             </h1>
             <ol class="breadcrumb">
                 <li>
                     <i class="fa fa-dashboard"></i> Dashboard
                 </li>
                 <li class="active">
-                    Adicionar Tarefa
+                    Visualizar Tarefa
                 </li>
             </ol>
         </div>
@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="alert alert-info alert-dismissable">
-                <i class="fa fa-info-circle"></i>  Preencha todos os campos !
+                <i class="fa fa-info-circle"></i>  Veja os detalhes da tarefa selecionada!
             </div>
         </div>
     </div>
@@ -31,16 +31,15 @@
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <form method="post" action="/addtarefa" enctype="multipart/form-data">
                 <div class="form-group">
                     <label>
-                        Data de Hoje:
+                        Data Inicio:
                     </label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input name="datahoje" type="text" class="datepicker form-control" required>
+                        <input value="@tarefa.getData" name="datahoje" type="text" class="form-control" disabled>
                     </div>
                     <label>
                         Data Final:
@@ -49,26 +48,25 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input name="datafinal" type="text" class="datepicker form-control" required>
+                        <input value="@tarefa.getDatafinal" name="datafinal" type="text" class="form-control" disabled>
                     </div>
+                    <label>Valor:</label>
+                    <input value="@tarefa.getValor" type="text" name="valor" class="form-control" disabled>
                     <label>
                         Comentário:
                     </label>
-                    <textarea class="form-control" type="text" name="comentario" required></textarea>
-                    <label>Prioridade:</label>
+                    <textarea class="form-control" type="text" name="comentario" disabled>
+                        @tarefa.getComentario
+                    </textarea>
+                    <!--<label>Prioridade:</label>
                     <select class="form-control" name="prioridade">
                         <option value="1">Baixo</option>
                         <option value="2">Normal</option>
                         <option value="3">Alto</option>
-                    </select>
+                    </select>-->
                     <label>Imagem:</label>
-                    <input type="text" class="form-control" name="picture">
-                    <label>Valor:</label>
-                    <input type="text" name="valor" class="form-control" required>
+                    <img class="imag" src="@tarefa.getFoto" alt="image"/>
                 </div>
-                <center><button class="btn btn-primary" type="submit">Adicionar</button> </center>
-            </form>
-
         </div>
         <div class="col-md-3"></div>
     </div>

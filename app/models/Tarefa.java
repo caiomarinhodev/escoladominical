@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.*;
+import java.io.File;
 
 /**
  * Created by Caio on 08/05/2015.
@@ -20,16 +21,27 @@ public class Tarefa {
     private String valor;
     @Column
     private String comentario;
+    @Lob
+    private String foto;
 
     public Tarefa(){
 
     }
 
-    public Tarefa(String data, String datafinal, String comentario, String valor) {
+    public Tarefa(String data, String datafinal, String comentario, String valor, String foto) {
         this.data = data;
         this.datafinal = datafinal;
         this.comentario = comentario;
         this.valor = valor;
+        this.foto = foto;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public String getValor() {

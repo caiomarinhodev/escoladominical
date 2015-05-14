@@ -9,6 +9,8 @@ import play.mvc.*;
 
 import views.html.*;
 
+import java.io.File;
+
 public class Application extends Controller {
     @Transactional
     public static Result login(){
@@ -68,12 +70,20 @@ public class Application extends Controller {
     public static Result addTarefa(){
         DynamicForm r = Form.form().bindFromRequest();
         String data = r.get("datahoje");
+        String file = r.get("picture");
         String datafinal = r.get("datafinal");
         String comentario = r.get("comentario");
         String valor = r.get("valor");
-        Tarefa t = new Tarefa(data,datafinal,comentario,valor);
+
+        Tarefa t = new Tarefa(data,datafinal,comentario,valor, file);
         SGDB.addTarefa(t);
         return renderDashboard();
+    }
+
+    @Transactional
+    public static Result viewTarefa(long id){
+        Tarefa t = SGDB.getTarefa(id);
+        return ok(viewtarefa.render(1, t));
     }
 
     @Transactional
@@ -178,6 +188,11 @@ public class Application extends Controller {
             return verAula(aula.getId());
         }
         return renderlistarAulas();
+    }
+
+    @Transactional
+    public static Result renderRelatorio(){
+        return ok(relatorio.render(11));
     }
 
 }
