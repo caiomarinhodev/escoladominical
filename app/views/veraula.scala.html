@@ -69,6 +69,7 @@
                                 <tr>
                                     <th>ID #</th>
                                     <th>Nome</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,6 +77,7 @@
                                     <tr>
                                         <td>@al.getAlunoid</td>
                                         <td>@SGDB.getAluno(al.getAlunoid).getNome</td>
+                                        <td><a href="/alteraraluno/@SGDB.getAluno(al.getAlunoid).getId"><span class="fa fa-edit"></span></a></td>
                                     </tr>
                                 }
                             </tbody>
@@ -95,6 +97,7 @@
                             <th>Nome</th>
                             <th>Telefone</th>
                             <th>Sala</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,6 +106,7 @@
                                 <td>@SGDB.getAluno(aluno.getAlunoid).getNome</td>
                                 <td>@SGDB.getAluno(aluno.getAlunoid).getTelefone</td>
                                 <td>@SGDB.getSala(SGDB.getAluno(aluno.getAlunoid).getSalaid()).getNome</td>
+                                <td><a href="/alteraraluno/@SGDB.getAluno(aluno.getAlunoid).getId"><span class="fa fa-edit"></span></a></td>
                             </tr>
                         }
                     </tbody>

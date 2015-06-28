@@ -29,7 +29,6 @@
     <!-- /.row -->
 
     <div class="row">
-        <div class="col-md-3"></div>
         <div class="col-md-6">
             <form method="post" action="/altaluno">
                 <input type="hidden" name="alunoid" value="@aluno.getId">
@@ -67,7 +66,69 @@
             </form>
 
         </div>
-        <div class="col-md-3"></div>
+
+        <div class="col-md-6">
+            <div id="panelpresencaaluno" style="height: 300px;"></div>
+            @for( in <- 1 to SGDB.getListaAllAulas.size()){
+                <input class="pres" id="inp-@in" type="hidden" value=@SGDB.verificaSeAlunoPresenteNaAulaNaData(SGDB.getListaAllAulas.get(in-1), aluno)>
+            }
+        </div>
+
+        <script src="assets/js/jquery.js"></script>
+        <script src="assets/js/jquery.flot.js"></script>
+        <script src="assets/js/jquery.flot.time.js"></script>
+        <script type="text/javascript">
+
+        $(document ).ready(function(){
+
+        var k = $('.pres').length;
+        console.log("Aulas:"+ k);
+        var d3 = [];
+        var meses = [];
+        for(var i=1;i<=k;i++){
+            var p = $('#inp-'+i ).val();
+            console.log("i:"+ p);
+            d3.push([i,p]);
+            meses.push(""+i);
+        }
+        // A null signifies separate line segments
+        var data1 = [{label: "Aluno",  data: d3, points: { symbol: "circle", fillColor: "#058DC7" }, color: '#058DC7'}];
+        $.plot($("#panelpresencaaluno"), data1, { xaxis : {
+            tickDecimals: 0,
+            axisLabel : 'Ultimas Aulas',
+            axisLabelUseCanvas : true,
+            axisLabelFontSizePixels : 12,
+            axisLabelFontFamily : 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
+            axisLabelPadding : 5
+            },
+            yaxis : {
+            tickDecimals: 0,
+            axisLabel : 'Presença',
+            axisLabelUseCanvas : true,
+            axisLabelFontSizePixels : 12,
+            axisLabelFontFamily : 'Verdana, Arial, Helvetica, Tahoma, sans-serif',
+            axisLabelPadding : 5
+            },
+            series: {
+            lines: { show: true },
+            points: {
+            radius: 3,
+            show: true,
+            fill: true
+            }
+            },
+            grid: {
+            hoverable: true,
+            borderWidth: 1
+            }
+        }
+        );
+
+        });
+
+        </script>
+
+
     </div>
 
 }

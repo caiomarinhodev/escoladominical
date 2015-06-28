@@ -346,6 +346,17 @@ public class SGDB {
     }
 
 
+    public static int verificaSeAlunoPresenteNaAulaNaData(Aula a, Aluno aluno){
+        List<Presenca> li = getPresencaDoAluno(aluno.getId());
+        for(Presenca p: li){
+            if(p.getData().equals(a.getData())){
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+
 
 
 

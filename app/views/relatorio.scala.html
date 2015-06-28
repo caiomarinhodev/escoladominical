@@ -39,6 +39,7 @@
                             <th>Telefone</th>
                             <th>Sala</th>
                             <th>Qtd</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,6 +49,7 @@
                             <td>@aluno.getTelefone</td>
                             <td>@SGDB.getSala(aluno.getSalaid).getNome</td>
                             <td>@SGDB.getPresencaDoAluno(aluno.getId).size()</td>
+                            <td><a href="/alteraraluno/@aluno.getId"><span class="fa fa-edit"></span></a></td>
                         </tr>
                     }
                     </tbody>
@@ -65,6 +67,7 @@
                             <th>Telefone</th>
                             <th>Sala</th>
                             <th>Qtd</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,6 +77,7 @@
                             <td>@aluno.getTelefone</td>
                             <td>@SGDB.getSala(aluno.getSalaid).getNome</td>
                             <td>@SGDB.getFaltasDoAluno(aluno.getId).size()</td>
+                            <td><a href="/alteraraluno/@aluno.getId"><span class="fa fa-edit"></span></a></td>
                         </tr>
                     }
                     </tbody>
